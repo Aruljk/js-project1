@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .problem{
+            max-width: 200px;
+            border: solid 2px black ;
+            padding: 10px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+<select name="" id="operation">
+<option value="add">Addition</option>
+<option value="sub">subtraction</option>
+<option value="multi">multiply</option>
+<option value="divide">divison</option>
+
+</select>
+    </div>
+    <div>
+<select name="" id="range">
+    <option value="9">1to9</option>
+    <option value="19">1to19</option>
+    <option value="29">1to29</option>
+    <option value="39">1to39</option>
+    <option value="49">1to49</option>
+    <option value="99">1to99</option>
+</select>
+    </div>
+    <button id="start">start</button>
+    <button id="calculate" disabled>calculate</button>
+    <div class="problems">
+    </div>
+<script>
+    var startEle=document.getElementById("start");
+    var problemsEle=document.getElementsByClassName("problems")[0];
+    var calculateEle=document.getElementById("calculate")
+    function generaterandomnumber(max){
+        return parseInt(Math.random()*max)
+    }
+function texttosymbol(text){
+    switch(text){
+        case'add':
+        return '+'
+        break;
+
+        case'sub':
+        return '-';
+        break;
+
+        case'multi':
+        return '*';
+        break;
+
+
+        default:
+        return '/'
+        break;
+    }
+
+
+}
+function resetproblems(){
+    problemsEle.innerHTML='';
+}
+function enablecalculate(){
+calculateEle.removeAttribute('disabled');
+}
+
+    function updateproblem(number1,number2,operation){
+let problemEle=document.createElement('div');
+problemEle.setAttribute("class","problem");
+
+let number1Ele=document.createElement("h3");
+number1Ele.innerText=number1;
+
+let operationEles=document.createElement("h3");
+operationEles.innerText=texttosymbol(operation);
+
+let number2Ele=document.createElement("h3");
+number2Ele.innerText=number2;
+
+let inputEle=document.createElement("input");
+inputEle.setAttribute("class","ans");
+
+inputEle.setAttribute("type","text");
+
+problemEle.append(number1)
+problemEle.append(operationEles)
+problemEle.append(number2)
+problemEle.append(inputEle)
+
+problemsEle.append(problemEle);
+
+    }
+ 
+
+var stage1operation=function(){
+    var operationEle=document.getElementById("operation"),
+     rangeEle=document.getElementById("range"), 
+    operation=operationEle.value,
+    range=parseInt(rangeEle.value),
+    randomnumber1,randomnumber2;
+    
+if(operation !== "divide"){
+    resetproblems();
+    for(let i=1;i<=16;i++){
+
+        randomnumber1=generaterandomnumber(range);
+        randomnumber2=generaterandomnumber(range);
+        updateproblem(randomnumber1,randomnumber2,operation);
+    }
+    enablecalculate();
+}
+
+
+}
+
+    startEle.addEventListener("click", stage1operation);
+
+    
+</script>
+</body>
+</html>
